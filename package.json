@@ -1,0 +1,33 @@
+{
+  "name": "canary",
+  "version": "1.0.0",
+  "description": "canary for pinging websites checking web app status etc",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require header.js ./tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://coreorm@github.com/coreorm/canary.git"
+  },
+  "author": "Bruce B Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coreorm/canary/issues"
+  },
+  "homepage": "https://github.com/coreorm/canary#readme",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "md5": "^2.2.1",
+    "request": "^2.88.0",
+    "s3-nosql": "^1.2.1",
+    "sanitize-html": "^1.20.1",
+    "striptags": "^3.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
+    "tracer": "^0.8.12"
+  }
+}
