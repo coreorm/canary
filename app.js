@@ -69,6 +69,5 @@ const getVerses = () => verses;
 
 module.exports = {
     verse,
-    check,
-    getVerses
+    check
 }
