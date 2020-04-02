@@ -19,15 +19,14 @@
   "homepage": "https://github.com/coreorm/canary#readme",
   "dependencies": {
     "command-line-args": "^5.1.1",
-    "dotenv": "^8.1.0",
     "md5": "^2.2.1",
-    "request": "^2.88.0",
-    "sanitize-html": "^1.20.1",
+    "request": "^2.88.2",
+    "sanitize-html": "^1.22.1",
     "striptags": "^3.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.3",
     "nyc": "^15.0.0",
     "tracer": "^0.8.12"
   }
