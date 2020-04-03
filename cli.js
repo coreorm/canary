@@ -3,6 +3,8 @@
 const commandLineArgs = require('command-line-args')
 const commandLineUsage = require('command-line-usage')
 
+const chalk = require('chalk');
+
 const optionDefinitions = [
     {
         name: 'help',
@@ -61,7 +63,31 @@ if (options.help || Object.keys(options).length <= 0) {
             content: 'Project home: {underline https://github.com/coreorm/canary}'
         }
     ])
-    console.log(usage)
+    log(usage);
 } else {
     // assign options
+    let log = console.log;
+    if (options.verbose === true) {
+        process.verbose = true;
+        log = () => {};
+    }
+    // include here so verbose works.
+    const app = require('./app');
+    const verse = app.verse;
+
+    if (options.url instanceof Array) {
+        options.url.forEach(url => {
+            app.check(new verse({
+                url: url,
+                timeout: options.timeout
+            }), (e, v) => {
+                if (e) {
+                    log(chalk`{red ERROR ${e.toString()}}`);
+                    process.exit(1);
+                }
+
+                log(chalk`{bold TESTS ${v.url} COMPLTED IN ${v.timeElapsed} MS - RESULT: {${v.colorKey} ${v.statusCode}} ${v.statusText}}`);
+            });
+        });
+    }
 }
