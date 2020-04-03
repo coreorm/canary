@@ -73,32 +73,28 @@ if (options.help || Object.keys(options).length <= 0) {
     }
     // include here so verbose works.
     const app = require('./app');
-    const verse = app.verse;
-
-    const calls = [];
+    const verse = app.Verse;
 
     if (options.url instanceof Array) {
         options.url.forEach(url => {
-            calls.push(function (cb) {
-                app.check(new verse({
-                    url: url,
-                    timeout: options.timeout
-                }), (e, v) => {
-                    if (e) {
-                        log(chalk`{red ERROR ${e.toString()}}`);
-                        return;
-                    }
-
-                    log(chalk`{bold TESTS ${v.url} COMPLTED IN ${v.timeElapsed} MS - RESULT: {${v.colorKey} ${v.statusCode}} ${v.statusText}}`);
-                    cb(e, v);
-                });
+            new verse({
+                url: url,
+                timeout: options.timeout
             });
         });
     }
 
-    // async calls
-    const async = require('async');
-    async.parallel(calls, (e, d) => {
+    // only use forEach when not verbose
+
+    app.checkMultiple((e, d) => {
+        if (d instanceof Array && d.length > 0) {
+            d.forEach(v => {
+                if (v instanceof verse) {
+                    log(v.cliResult);
+                }
+            });
+        }
         console.log(`\nAll tasks finished in ${Date.now() - startTime}ms`);
     });
+
 }

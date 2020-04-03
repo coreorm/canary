@@ -20,7 +20,7 @@ if (process.verbose === true) {
  * 
  * @param url mixed if string, use it as URL, if object, assign it
  */
-class verse {
+class Verse {
     constructor(url, method = 'GET', payload = null, timeout = 5000, title = null, auth = {}, headers = []) {
         // check if url is actually object
         let targetURL = '';
@@ -52,6 +52,8 @@ class verse {
             this.title = this.url;
         }
         this.hash = md5(this.title);
+        this.cliResult = '';
+
         verses.push(this);
     }
 };
@@ -120,7 +122,7 @@ const check = async (verse, cb) => {
             allowedAttributes: {}
         });
         verse.timeElapsed = Date.now() - startTime;
-
+        verse.cliResult = chalk`{bold TESTS ${verse.url} COMPLTED IN ${verse.timeElapsed} MS - RESULT: {${verse.colorKey} ${verse.statusCode}} ${verse.statusText}}`;
 
         log(chalk`\n\n{bold TEST URL: ${verse.url}} FINISHED IN ${verse.timeElapsed}ms \nRESULT: {${colorKey} ${verse.statusCode} ${verse.statusText}}`);
         log(chalk`{bold request config:}`);
@@ -142,10 +144,26 @@ const check = async (verse, cb) => {
     });
 };
 
+const checkMultiple = (finalCB) => {
+    const async = require('async');
+    const calls = [];
+    verses.forEach((v) => {
+        calls.push((cb) => {
+            check(v, (e, v) => {
+                cb(e, v);
+            });
+        });
+    });
+    async.parallel(calls, (e, d) => {
+        finalCB(e, verses);
+    });
+}
+
 const getVerses = () => verses;
 
 module.exports = {
-    verse,
+    Verse,
     check,
+    checkMultiple,
     getVerses
 }

@@ -19,17 +19,17 @@ const cb = (err, verse, code, done) => {
 describe('app', function () {
     it('Expect https://www.google.com/ to be 200', function (done) {
         this.timeout = 5000;
-        app.check(new app.verse('https://www.google.com/'), (err, verse) => cb(err, verse, 200, done));
+        app.check(new app.Verse('https://www.google.com/'), (err, verse) => cb(err, verse, 200, done));
     });
     //*
     it('Expect https://www.google.com/xxx to be 404', function (done) {
         this.timeout = 5000;
-        app.check(new app.verse('https://www.google.com/xxx'), (err, verse) => cb(err, verse, 404, done));
+        app.check(new app.Verse('https://www.google.com/xxx'), (err, verse) => cb(err, verse, 404, done));
     });
 
     it('Expect PUT https://www.google.com.au/ to be 405', function (done) {
         this.timeout = 5000;
-        app.check(new app.verse({
+        app.check(new app.Verse({
             url: 'https://www.google.com.au/',
             title: 'Google',
             method: 'put',
