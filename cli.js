@@ -16,21 +16,21 @@ const optionDefinitions = [
         type: String,
         multiple: true,
         description: 'The URL(s) you would like to check, for more than 1 url, separate them by space' +
-            ' {italic Note: authentication is not supported with this option, please use --config-file option instead}',
+            '\n {italic Note: authentication is not supported with this option, please use --config-file option instead}',
         typeLabel: '<url>'
     },
     {
         name: 'timeout',
         alias: 't',
         type: Number,
-        description: 'Timeout value in ms',
+        description: '{italic optional} Timeout value in ms, default is 5000ms',
         typeLabel: '<ms>'
     },
     {
         name: 'config-file',
         alias: 'c',
         type: String,
-        description: 'JSON config file, file format see example'
+        description: 'JSON config file, file format see example here: {underline https://github.com/coreorm/canary/blob/master/sample-config.json}'
     },
     {
         name: 'verbose',
@@ -63,5 +63,5 @@ if (options.help || Object.keys(options).length <= 0) {
     ])
     console.log(usage)
 } else {
-    console.log(options)
+    // assign options
 }

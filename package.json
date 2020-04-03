@@ -19,8 +19,10 @@
   "homepage": "https://github.com/coreorm/canary#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "chalk": "^4.0.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.0",
+    "expect.js": "^0.3.1",
     "md5": "^2.2.1",
     "node-fetch": "^2.6.0",
     "request": "^2.88.2",
