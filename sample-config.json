@@ -1,0 +1,23 @@
+[
+    {
+        "url": "https://www.apple.com.au"
+    },
+    {
+        "title": "Example API with auth",
+        "url": "https://fake.me/api",
+        "auth": {
+            "username": "janedoe",
+            "password": "s00pers3cret"
+        },
+        "method": "POST",
+        "timeout": 10000
+    },
+    {
+        "title": "Example API with header auth",
+        "url": "https://fake.me/api",
+        "headers": {
+            "x-api-key": "s00pers3cretKeyYouCantEv3nGue33"
+        },
+        "method": "PUT"
+    }
+]

@@ -3,26 +3,35 @@
 const req = require('request');
 const md5 = require('md5');
 const striptags = require('sanitize-html');
+const verses = [];
 
 /**
  * verse
  * about a website/app/etc
  */
 class verse {
-    constructor(title, url, interval = 3000, CodeGreen = 200, CodeYellow = 404, CodeRed = 500, iconURL = null) {
+    constructor(url, method = 'GET', payload = null, timeout = 5000, title = null, auth = {}, headers = [], CodeGreen = 200, CodeYellow = 404, CodeRed = 500) {
         // store in class
+        if (!title) {
+            title = url;
+        }
         this.title = title;
         this.url = url;
-        this.interval = interval;
+        this.method = method;
         this.CodeGreen = CodeGreen;
         this.CodeYellow = CodeYellow;
         this.CodeRed = CodeRed;
-        this.iconURL = iconURL;
+        this.timeout = timeout;
         this.hash = md5(this.title);
+        this.auth = auth;
+        this.payload = payload;
+        this.headers = headers;
         this.responseCode = null;
         this.response = null;
         this.responseText = null;
         this.colorKey = null;
+
+        verses.push(this);
     }
 };
 
@@ -59,7 +68,6 @@ const check = (verse, cb) => {
         });
         verse.responseCode = resp.statusCode;
 
-
         // call back
         cb(err, verse);
     });
@@ -69,5 +77,6 @@ const getVerses = () => verses;
 
 module.exports = {
     verse,
-    check
+    check,
+    getVerses
 }
