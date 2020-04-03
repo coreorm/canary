@@ -74,14 +74,36 @@ const check = async (verse, cb) => {
 
         let response;
         if (resp.isAxiosError) {
-            // log(resp);
-            response = resp.response;
+            if (resp.response) {
+                response = resp.response;
+            } else {
+                resp = resp.toJSON();
+                /*
+                [ 'message',
+                'name',
+                'description',
+                'number',
+                'fileName',
+                'lineNumber',
+                'columnNumber',
+                'stack',
+                'config',
+                'code' ]
+                */
+                response = {
+                    status: resp.code,
+                    statusText: resp.message,
+                    data: resp.message
+                };
+            }
         } else {
             response = resp;
         }
-
+        verse.response = '';
         verse.statusCode = response.status;
-        verse.response = response.data;
+        if (response.data) {
+            verse.response = response.data;
+        }
         verse.statusText = response.statusText;
 
         let colorKey = 'red';
@@ -100,11 +122,11 @@ const check = async (verse, cb) => {
         verse.timeElapsed = Date.now() - startTime;
 
 
-        log(chalk`\n\n{bold TEST URL: ${verse.url}} FINISHED IN ${verse.timeElapsed}ms \nRESULT: {${colorKey} ${verse.statusCode} ${verse.statusText}}\n`);
-        log(chalk`\n{bold request config:}`);
+        log(chalk`\n\n{bold TEST URL: ${verse.url}} FINISHED IN ${verse.timeElapsed}ms \nRESULT: {${colorKey} ${verse.statusCode} ${verse.statusText}}`);
+        log(chalk`{bold request config:}`);
         log(cnf);
-        log(chalk`\n{bold response:}`);
-        log(`${verse.response.replace(/\n/ig, '').trim().trim('\n').substr(0,400)}...`);
+        log(chalk`{bold response:}`);
+        log(`${verse.response.replace(/\n/ig, '').trim().trim('\n').substr(0, 400)}...`);
     };
 
     instance.request(cnf).then((response) => {
