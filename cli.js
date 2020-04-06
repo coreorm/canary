@@ -86,6 +86,23 @@ if (options.help || Object.keys(options).length <= 0) {
         });
     }
 
+    // if file
+    if (options['config-file']) {
+        try {
+            const f = require('fs');
+            let cf = f.readFileSync(options['config-file']);
+            cf = JSON.parse(cf);
+            if (cf instanceof Array) {
+                cf.forEach((i) => {
+                    new verse(i);
+                });
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     // only use forEach when not verbose
 
     app.checkMultiple((e, d) => {
