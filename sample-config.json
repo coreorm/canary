@@ -9,6 +9,9 @@
             "username": "janedoe",
             "password": "s00pers3cret"
         },
+        "payload": {
+            "foo": "bar"
+        },
         "method": "POST",
         "timeout": 10000
     },

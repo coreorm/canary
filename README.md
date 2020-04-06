@@ -4,11 +4,54 @@ canary for pinging websites checking web app status etc
 ## usage
 
 ```
+// include the lib
 const canary = require('webcanary');
+
+// use the Verse object to configure a web request:
+new canary.Verse(url, method = 'GET', payload = null, timeout = 5000, title = null, auth = {}, headers = [])... 
+
+// quick check
 
 canary.check(new canary.Verse('https://www.google.com/'), (err, verse) => {
     console.log(err);
     console.log(verse);
+});
+
+// configure a complex call (such as a post or put)
+const cnf = {
+    "title": "Example API with auth",
+    "url": "https://fake.me/api",
+    "auth": {
+        "username": "janedoe",
+        "password": "s00pers3cret"
+    },
+    "payload": {
+        "foo": "bar"
+    },
+    "method": "POST",
+    "timeout": 10000
+};
+
+canary.check(new canary.Verse(cnf), (err, verse) => {
+    console.log(err);
+    console.log(verse);
+});
+
+// check multiple websites (will run in parallel to save time)
+// every new verse will add to an internal verses object, and you just need to simply do:
+new canary.Verse('https://www.google.com');
+new canary.Verse('https://apple.com');
+...
+
+canary.checkMultiple((e, verses) => {
+    if (verses instanceof Array && verses.length > 0) {
+        verses.forEach(v => {
+            if (v instanceof canary.Verse) {
+                // all stuff are contained in verse, dump it out to see the results
+                console.log(v);
+            }
+        });
+    }
 });
 
 ```
