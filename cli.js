@@ -1,5 +1,3 @@
-'use strict';
-
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
 let startTime = Date.now();
