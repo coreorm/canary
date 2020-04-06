@@ -63,7 +63,7 @@ if (options.help || Object.keys(options).length <= 0) {
             content: 'Project home: {underline https://github.com/coreorm/canary}'
         }
     ])
-    log(usage);
+    console.log(usage);
 } else {
     // assign options
     let log = console.log;
