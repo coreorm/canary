@@ -1,6 +1,6 @@
 {
   "name": "webcanary",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "canary for pinging websites checking web service status etc",
   "main": "app.js",
   "bin": "cli.js",
