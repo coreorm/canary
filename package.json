@@ -19,7 +19,7 @@
   "homepage": "https://github.com/coreorm/canary#readme",
   "dependencies": {
     "async": "^3.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^4.0.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.0",
